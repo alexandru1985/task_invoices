@@ -7,6 +7,7 @@ use Spatie\LaravelData\Data;
 class InvoicesDTO extends Data
 {
     /**
+     * @param string|null $id
      * @param string|null $number
      * @param string|null $date
      * @param string|null $due_date
@@ -15,6 +16,7 @@ class InvoicesDTO extends Data
      * @param string|null $products
      */
     public function __construct(
+        public ?string $id,
         public ?string $number,
         public ?string $date,
         public ?string $due_date,
