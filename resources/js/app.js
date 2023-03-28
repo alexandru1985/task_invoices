@@ -1,4 +1,7 @@
+import jQuery from 'jquery';
+window.$ = jQuery;
 import './bootstrap';
+
 
 import { createApp } from 'vue'
 import { createRouter,createWebHistory } from 'vue-router'

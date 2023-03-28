@@ -14,6 +14,7 @@ class InvoicesDTO extends Data
      * @param string|null $status
      * @param string|null $company
      * @param string|null $products
+     * @param int|null $totalAmountProducts
      */
     public function __construct(
         public ?string $id,
@@ -22,7 +23,8 @@ class InvoicesDTO extends Data
         public ?string $due_date,
         public ?string $status,
         public ?string $company,
-        public ?string $products
+        public ?string $products,
+        public ?int $totalAmountProducts
     ) {
     }
 }

@@ -33,21 +33,4 @@ class Invoice extends Model
     {
         return $this->belongsToMany(Product::class, 'invoice_product_lines')->withPivot('quantity');
     }
-
-    /**
-     * @return Collection
-     */
-    public static function getInvoices(): Collection
-    {
-        return self::with('company')->get();
-    }
-
-    /**
-     * @param Invoice $invoice
-     * @return Collection
-     */
-    public static function invoiceProducts(Invoice $invoice): Collection
-    {
-        return self::with('company', 'products')->where('id', '=', $invoice->id)->get();
-    }
 }

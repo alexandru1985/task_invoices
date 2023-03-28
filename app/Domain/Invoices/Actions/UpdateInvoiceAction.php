@@ -14,7 +14,7 @@ use Ramsey\Uuid\Uuid;
 use App\Domain\Enums\StatusEnum;
 use App\Modules\Approval\Api\ApprovalFacadeInterface;
 
-class UpdateInvoice
+class UpdateInvoiceAction
 {
     public function __construct(
         private readonly ApprovalFacadeInterface $facade
@@ -22,11 +22,14 @@ class UpdateInvoice
     }
     /**
      * @param Request $request
-     * @param Invoice $invoice
-     * @return DataCollection
      */
-    public function handle(Request $request, Invoice $invoice): DataCollection
-    {
+    public function handle(
+        Request $request,
+        Invoice $invoice,
+    ) {
+
+        return response()->json(["message"=>"Test"], Response::HTTP_OK);
+        dd($request->status);
         $facade = new ApprovalFacade;
         $this->facade->approve(new ApprovalDto(
             Uuid::fromString($invoice->id),

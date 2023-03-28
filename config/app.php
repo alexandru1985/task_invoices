@@ -201,6 +201,7 @@ return [
          * Modules Service Providers
          */
         App\Modules\Approval\Infrastructure\Providers\ApprovalsServiceProvider::class,
+        App\Modules\Approval\Infrastructure\Providers\InvoiceRepositoryServiceProvider::class,
     ],
 
     /*
@@ -215,7 +216,7 @@ return [
     */
 
     'aliases' => Facade::defaultAliases()->merge([
-        // 'ExampleClass' => App\Example\ExampleClass::class,
+        'InvoiceHelper' => App\Domain\Helpers\InvoiceHelper::class,
     ])->toArray(),
 
 ];

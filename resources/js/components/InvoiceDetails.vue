@@ -101,7 +101,7 @@
                         </td>
                         <td>
                           <span class="h5">
-                            <b>{{this.invoiceDetails.totalAmountProducts + ' ' + invoiceDetails.currency}}</b>
+                            <b>{{this.invoiceDetails.totalAmountProducts + ' '}}</b>
                           </span>
                         </td>
                       </tr>
@@ -115,7 +115,7 @@
       </div>
     </div>
   </div>
-  <ApproveInvoice :key="reload" :invoice-details="invoiceDetails" :status="approved" />
+  <ApproveInvoice :key="reload" :invoice-details="invoiceDetails" :status="approved" @invoice-updated="reloadInvoiceData($event)"/>
   <RejectInvoice :key="reload" :invoice-details="invoiceDetails" :status="rejected" />
 </template>
 <script>
@@ -150,37 +150,16 @@ export default {
           this.invoiceDetails = response.data[0];
           this.company = JSON.parse(this.invoiceDetails.company);
           this.products = JSON.parse(this.invoiceDetails.products);
-          this.products = this.calculateAndAddAmountProducts(this.products);
-          this.invoiceDetails = this.calculateAndAddTotalAmountProducts(this.invoiceDetails, this.products);
         });
-    },
-    calculateAndAddAmountProducts(products) {
-      for (let i = 0; i < products.length; i++) {
-        let amountProducts = products[i].pivot.quantity * products[i].price;
-        products[i]['amountProducts'] = amountProducts;
-      }
-
-      return products;
-    },
-    calculateAndAddTotalAmountProducts(invoiceDetails, products) {
-      let amountProducts = [];
-      for (let i = 0; i < products.length; i++) {
-        amountProducts.push(products[i].amountProducts);
-      }
-
-      let totalAmountProducts = 0;
-      for (let i = 0; i < amountProducts.length; i++) {
-        totalAmountProducts += amountProducts[i];
-      }
-
-      invoiceDetails['totalAmountProducts'] = totalAmountProducts;
-      invoiceDetails['currency'] = products[0].currency;
-
-      return invoiceDetails;
     },
     reloadComponent() {
       this.reload++;
-    }
+    },
+    reloadInvoiceData(invoiceUpdated) {
+      if (invoiceUpdated == 'updated') {
+        this.getInvoiceDetails(); 
+      }
+    },
   }
 }
 </script>

@@ -17,7 +17,7 @@
       </div>
       <div class="modal-footer">
         <div class="col-md-12 text-center">
-            <button type="button" class="btn btn-primary me-1">Yes</button>
+            <button type="button" class="btn btn-primary me-1" @click="approveInvoice()">Yes</button>
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
         </div>
       </div>
@@ -31,14 +31,27 @@ export default {
   data() {
     return {
       invoiceDetails: this.invoiceDetails,
-      status: this.status
+      status: this.status,
     }
   },
   created() {
-
   },
   methods: {
-
+    approveInvoice() {
+      axios({
+        method: 'put',
+        url: 'http://localhost/api/invoices/' + this.invoiceDetails.id,
+        data: {
+          status: this.status
+        }
+      }).then(response => {
+        this.$emit('invoiceUpdated', 'updated');
+        this.closeModal();
+      });
+    },
+    closeModal() {
+      $(".fade").removeClass("show");
+    }
   }
 }
 </script>
