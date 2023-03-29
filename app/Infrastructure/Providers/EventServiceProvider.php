@@ -7,6 +7,10 @@ namespace App\Infrastructure\Providers;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
+use App\Modules\Approval\Api\Events\EntityApproved;
+use App\Modules\Approval\Api\Events\EntityRejected;
+use App\Domain\Invoices\Listeners\ApproveInvoice;
+use App\Domain\Invoices\Listeners\RejectInvoice;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -19,6 +23,12 @@ class EventServiceProvider extends ServiceProvider
         Registered::class => [
             SendEmailVerificationNotification::class,
         ],
+        EntityApproved::class => [
+            ApproveInvoice::class,
+        ],
+        EntityRejected::class => [
+            RejectInvoice::class,
+        ]
     ];
 
     /**

@@ -28,7 +28,7 @@
           <td>
             <router-link 
               class="btn btn-primary" 
-              :to="{ path: '/invoice-details/'+ invoice.id}"
+              :to="{ path: '/invoice-details/'+ invoice.id +'/show'} "
             >
               Show Invoice
             </router-link>

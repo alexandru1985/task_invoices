@@ -3,6 +3,8 @@
 namespace App\Domain\Helpers;
 
 use Illuminate\Database\Eloquent\Collection;
+use App\Domain\Enums\ActionInvoiceEnum;
+use Illuminate\Http\Response;
 
 class InvoiceHelper
 {
@@ -40,5 +42,19 @@ class InvoiceHelper
                 });
 
         return $invoiceProductsById->slice(0,1);
+    }
+
+    /**
+     * @param string $actionName
+     * @return string|false
+     */
+    public static function validateInvoiceActionName(string $actionName): string|false {
+        $actions = array_column(ActionInvoiceEnum::cases(), 'value');
+
+        if (in_array($actionName, $actions)) {
+            return $actionName;
+        }
+
+        return false;
     }
 }

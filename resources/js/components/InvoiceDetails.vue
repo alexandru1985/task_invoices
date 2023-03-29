@@ -101,7 +101,7 @@
                         </td>
                         <td>
                           <span class="h5">
-                            <b>{{this.invoiceDetails.totalAmountProducts + ' '}}</b>
+                            <b>{{this.invoiceDetails.totalAmountProducts + ' USD'}}</b>
                           </span>
                         </td>
                       </tr>
@@ -115,8 +115,8 @@
       </div>
     </div>
   </div>
-  <ApproveInvoice :key="reload" :invoice-details="invoiceDetails" :status="approved" @invoice-updated="reloadInvoiceData($event)"/>
-  <RejectInvoice :key="reload" :invoice-details="invoiceDetails" :status="rejected" />
+  <ApproveInvoice :key="reload" :invoice-details="invoiceDetails" @invoice-updated="reloadInvoiceData($event)"/>
+  <RejectInvoice :key="reload" :invoice-details="invoiceDetails" />
 </template>
 <script>
 import shared from './../shared';
@@ -133,8 +133,6 @@ export default {
       invoiceDetails: [],
       products: [],
       company: [],
-      approved: 'approved',
-      rejected: 'rejected',
       reload: 0
     }
   },

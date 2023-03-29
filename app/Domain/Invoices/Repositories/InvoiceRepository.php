@@ -24,4 +24,23 @@ class InvoiceRepository implements InvoiceRepositoryInterface
     {
         return Invoice::with('company', 'products')->where('id', '=', $invoice->id)->get();
     }
+
+    /**
+     * @param Invoice $invoice
+     * @param array $data
+     * @return int
+     */
+    public function updateInvoice(Invoice $invoice, array $data): int 
+    {
+        return Invoice::whereId($invoice->id)->update($data);
+    }
+
+    /**
+     * @param Invoice $invoice
+     * @param array $data
+     */
+    public function getInvoiceById(Invoice $invoice): Invoice 
+    {
+        return Invoice::findOrFail($invoice->id);
+    }
 }

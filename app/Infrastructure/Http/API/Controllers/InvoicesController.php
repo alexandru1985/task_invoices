@@ -7,6 +7,7 @@ use App\Domain\Invoices\Actions\GetInvoicesAction;
 use App\Domain\Invoices\Actions\GetInvoiceProductsAction;
 use App\Domain\Invoices\Interfaces\InvoiceRepositoryInterface;
 use App\Domain\Invoices\Actions\UpdateInvoiceAction;
+use App\Modules\Approval\Api\ApprovalFacadeInterface;
 use App\Domain\Invoices\DTOs\InvoicesDTO;
 use App\Domain\Invoices\Entities\Invoice;
 use Illuminate\Http\JsonResponse;
@@ -62,8 +63,13 @@ class InvoicesController extends Controller
     public function update(
         Request $request,
         Invoice $invoice,
-        UpdateInvoiceAction $updateInvoiceAction
+        UpdateInvoiceAction $updateInvoiceAction,
+        ApprovalFacadeInterface $approvalFacadeInterface
     ): JsonResponse {
-        return response()->json($updateInvoiceAction->handle($request, $invoice), Response::HTTP_OK);
+        return response()->json($updateInvoiceAction->handle(
+            $request,
+            $invoice,
+            $approvalFacadeInterface
+        ), Response::HTTP_OK);
     }
 }

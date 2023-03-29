@@ -14,11 +14,18 @@ use LogicException;
 
 final readonly class ApprovalFacade implements ApprovalFacadeInterface
 {
+    /**
+     * @param Dispatcher $dispatcher
+     */
     public function __construct(
         private Dispatcher $dispatcher
     ) {
     }
 
+    /**
+     * @param ApprovalDto $dto
+     * @return true
+     */
     public function approve(ApprovalDto $dto): true
     {
         $this->validate($dto);
@@ -27,6 +34,10 @@ final readonly class ApprovalFacade implements ApprovalFacadeInterface
         return true;
     }
 
+    /**
+     * @param ApprovalDto $dto
+     * @return true
+     */
     public function reject(ApprovalDto $dto): true
     {
         $this->validate($dto);
@@ -35,6 +46,10 @@ final readonly class ApprovalFacade implements ApprovalFacadeInterface
         return true;
     }
 
+    /**
+     * @param ApprovalDto $dto
+     * @return void
+     */
     private function validate(ApprovalDto $dto): void
     {
         if (StatusEnum::DRAFT !== StatusEnum::tryFrom($dto->status->value)) {

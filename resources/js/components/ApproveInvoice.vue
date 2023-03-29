@@ -27,11 +27,11 @@
 </template>
 <script>
 export default {
-  props: ['invoiceDetails', 'status'],
+  props: ['invoiceDetails'],
   data() {
     return {
       invoiceDetails: this.invoiceDetails,
-      status: this.status,
+      action: 'approve'
     }
   },
   created() {
@@ -42,15 +42,16 @@ export default {
         method: 'put',
         url: 'http://localhost/api/invoices/' + this.invoiceDetails.id,
         data: {
-          status: this.status
+          action: this.action
         }
       }).then(response => {
         this.$emit('invoiceUpdated', 'updated');
         this.closeModal();
+        window.location.reload();
       });
     },
     closeModal() {
-      $(".fade").removeClass("show");
+      $('.fade').removeClass('show');
     }
   }
 }

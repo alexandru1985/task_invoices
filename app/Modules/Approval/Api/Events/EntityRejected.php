@@ -8,6 +8,9 @@ use App\Modules\Approval\Api\Dto\ApprovalDto;
 
 final readonly class EntityRejected
 {
+    /**
+     * @param ApprovalDto $approvalDto
+     */
     public function __construct(
         public ApprovalDto $approvalDto
     ) {
