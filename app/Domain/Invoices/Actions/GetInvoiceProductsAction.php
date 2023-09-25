@@ -16,10 +16,11 @@ class GetInvoiceProductsAction
      */
     public function handle(Collection $invoiceProductsById): DataCollection
     { 
-         $invoiceProductsById = 
-            InvoiceHelper::addAmountProductsToProductsObject($invoiceProductsById);
-         $invoiceProductsById = 
-            InvoiceHelper::addTotalAmountProductsToInvoiceObject($invoiceProductsById);
+        $invoiceHelper = new InvoiceHelper();
+        $invoiceProductsById = 
+            $invoiceHelper->addAmountProductsToProductsObject($invoiceProductsById);
+        $invoiceProductsById = 
+            $invoiceHelper->addTotalAmountProductsToInvoiceObject($invoiceProductsById);
 
         return InvoicesDTO::collection($invoiceProductsById);
     }

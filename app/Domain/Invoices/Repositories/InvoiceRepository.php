@@ -43,4 +43,12 @@ class InvoiceRepository implements InvoiceRepositoryInterface
     {
         return Invoice::findOrFail($invoice->id);
     }
+
+    /**
+     * @return Invoice 
+     */
+    public function getLastInvoice(): Invoice 
+    {
+        return Invoice::with('company')->latest('created_at')->first();
+    }
 }

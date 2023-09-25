@@ -12,4 +12,11 @@ class Product extends Model
     protected $casts = [
         'id' => 'string'
     ];
+
+    /**
+     * The "type" of the auto-incrementing ID.
+     *
+     * @var string
+     */
+    protected $keyType = 'string';
 }

@@ -29,13 +29,14 @@ class UpdateInvoiceAction
      */
     public function handle(Request $request, Invoice $invoice, ApprovalFacade $facade): JsonResponse
     {
-        $action = InvoiceHelper::validateInvoiceActionName($request->action);
+        $invoiceHelper = new InvoiceHelper();
+        $action = $invoiceHelper->validateInvoiceActionName($request->action);
 
         if ($action == false) {
             return response()->json(__('apiMessages.actionParameter'), Response::HTTP_OK);
         }
 
-        if ($action == 'approve' && $invoice->status == StatusEnum::DRAFT->value) {
+        if ($action == ActionInvoiceEnum::APPROVE->value && $invoice->status == StatusEnum::DRAFT->value) {
             $facade->approve(new ApprovalDto(
                 Uuid::fromString($invoice->id),
                 StatusEnum::tryFrom($invoice->status),
@@ -45,7 +46,7 @@ class UpdateInvoiceAction
             return response()->json(__('apiMessages.statusApproved'), Response::HTTP_OK);
         }    
 
-        if ($action == 'reject' && $invoice->status == StatusEnum::DRAFT->value) {
+        if ($action == ActionInvoiceEnum::REJECT->value && $invoice->status == StatusEnum::DRAFT->value) {
             $facade->reject(new ApprovalDto(
                 Uuid::fromString($invoice->id),
                 StatusEnum::tryFrom($invoice->status),
