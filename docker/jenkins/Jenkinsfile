@@ -18,14 +18,14 @@ node('docker') {
          */
         stage('Build') {
             docker.build('jenkins')
+                git 'https://github.com/alexandru1985/task_invoices.git'
+                sh 'composer install'
+                sh 'cp .env.example .env'
+                sh 'php artisan key:generate'
         }
 
         stage('Test') {
-            sh """
-            git submodule update --init --recursive
-            git clone https://github.com/sstephenson/bats.git
-            bats/bin/bats tests
-            """
+            sh './vendor/bin/phpunit'
         }
     } else {
         /* In our trusted.ci environment we only want to be publishing our

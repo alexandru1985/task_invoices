@@ -381,3 +381,7 @@ services:
         - 2375
       networks:
         - backend
+### Jenkins #########################################################
+    jenkins: 
+      build: ./jenkins
+
